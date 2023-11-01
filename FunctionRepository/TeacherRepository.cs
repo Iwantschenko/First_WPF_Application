@@ -15,39 +15,24 @@ namespace FunctionRepository
             _context = context;
         }
 
-        public void Add(Teacher entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Add(Teacher entity) => _context.Teachers.Add(entity);
 
-        public void AddRange(IEnumerable<Teacher> entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void AddRange(IEnumerable<Teacher> entity) => _context.Teachers.AddRange(entity);
 
         public void Delete(Teacher entity)
         {
             throw new NotImplementedException();
         }
-
-        public List<Teacher> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Teacher GetId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(Teacher entity)
         {
             throw new NotImplementedException();
         }
+        public List<Teacher> GetAll() => _context.Teachers.ToList();
+
+        public Teacher GetId(Guid id) => _context.Teachers.FirstOrDefault(x => x.Teacher_Id == id);
+
+        public void Save() => _context.SaveChanges();
+
+        
     }
 }

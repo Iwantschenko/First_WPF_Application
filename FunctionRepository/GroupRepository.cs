@@ -17,39 +17,24 @@ namespace FunctionRepository
             this._context = context;
         }
 
-        public void Add(GroupStudent entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Add(GroupStudent entity) => _context.Groups.Add(entity);
 
-        public void AddRange(IEnumerable<GroupStudent> entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void AddRange(IEnumerable<GroupStudent> entity) => _context.Groups.AddRange(entity);
 
         public void Delete(GroupStudent entity)
         {
             throw new NotImplementedException();
         }
-
-        public List<GroupStudent> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public GroupStudent GetId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(GroupStudent entity)
         {
             throw new NotImplementedException();
         }
+        public List<GroupStudent> GetAll() => _context.Groups.ToList();
+
+        public GroupStudent GetId(Guid id) => _context.Groups.FirstOrDefault(x => x.Group_Id == id);
+
+        public void Save() => _context.SaveChanges();
+
+        
     }
 }
