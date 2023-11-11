@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Name ="mainGrid" MouseUp="mainGrid_MouseUp" Background="white">
-        <TextBlock HorizontalAlignment="Center">MyNameIsANTON</TextBlock>
-        
-    </Grid>
+        Title="Interface for Courses DataBase" Height="600" Width="1000">
     
+    <DockPanel Margin="10">
+        <TreeView    DockPanel.Dock="Left" BorderBrush="Black"  >
+            
+        </TreeView>
+        
+    </DockPanel>
+
 </Window>

@@ -19,14 +19,8 @@ namespace FunctionRepository
 
         public void AddRange(IEnumerable<Student> entity) => _context.Students.AddRange(entity);
 
-        public void Delete(Student entity)
-        {
-            throw new NotImplementedException();
-        }
-        public void Update(Student entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Delete(Student entity) => _context.Students.Remove(entity);
+        public void Update(Student entity) => _context.Students.Update(entity);
         public List<Student> GetAll() => _context.Students.ToList();
 
         public Student GetId(Guid id) => _context.Students.FirstOrDefault(x=> x.Student_Id == id);

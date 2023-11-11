@@ -21,12 +21,22 @@ namespace FunctionRepository
 
         public void Delete(Teacher entity)
         {
-            throw new NotImplementedException();
+            if (_context.Teachers.Contains(entity))
+            {
+                List<GroupStudent> teacherGroups = _context.Groups
+                    .Where(x=> x.TeacherId == entity.Teacher_Id)
+                    .ToList();
+                GroupRepository groupRepository = new GroupRepository(_context);
+                foreach (var group in teacherGroups)
+                {
+                    groupRepository.Delete(group);
+                }
+                _context.Teachers.Remove(entity);
+            }
+            else 
+                return;
         }
-        public void Update(Teacher entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Teacher entity)  => _context.Teachers.Update(entity);
         public List<Teacher> GetAll() => _context.Teachers.ToList();
 
         public Teacher GetId(Guid id) => _context.Teachers.FirstOrDefault(x => x.Teacher_Id == id);

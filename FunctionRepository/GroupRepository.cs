@@ -23,12 +23,18 @@ namespace FunctionRepository
 
         public void Delete(GroupStudent entity)
         {
-            throw new NotImplementedException();
+            if (_context.Groups.Contains(entity))
+            {
+                _context.Students.RemoveRange(_context.Students
+                    .Where(x=> x.GroupId == entity.Group_Id)
+                    .ToList());
+                _context.Groups.Remove(entity);
+            }
+            else
+                return;
+
         }
-        public void Update(GroupStudent entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(GroupStudent entity) => _context.Groups.Update(entity);
         public List<GroupStudent> GetAll() => _context.Groups.ToList();
 
         public GroupStudent GetId(Guid id) => _context.Groups.FirstOrDefault(x => x.Group_Id == id);

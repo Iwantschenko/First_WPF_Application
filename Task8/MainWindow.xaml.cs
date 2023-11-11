@@ -1,4 +1,6 @@
 ﻿using DbContextClasses;
+using FunctionRepository;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +23,18 @@ namespace Task8
     /// </summary>
     public partial class MainWindow : Window
     {
+        static DataBaseContextClass db = new DataBaseContextClass();
+        static CourseRepository courseRepository = new CourseRepository(db);
+        static GroupRepository groupRepository = new GroupRepository(db);
+        static ServicesForRepository<Course> courseServise = new ServicesForRepository<Course>(courseRepository);
+        static ServicesForRepository<GroupStudent> groupService = new ServicesForRepository<GroupStudent>(groupRepository);
         public MainWindow()
         {
-            InitializeComponent();
-
+            InitializeComponent();   
         }
 
-        private void mainGrid_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            DataBaseContextClass db = new DataBaseContextClass();
-            MessageBox.Show($"You click on{e.GetPosition(this)} and {sender}");
-        }
+        
+
+       
     }
 }

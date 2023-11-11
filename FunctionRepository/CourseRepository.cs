@@ -19,12 +19,22 @@ namespace FunctionRepository
         public void AddRange(IEnumerable<Course> entity) => _context.Courses.AddRange(entity);
         public void Delete(Course entity)
         {
-            throw new NotImplementedException();
+            if (_context.Courses.Contains(entity))
+            {
+                List<GroupStudent> courseGroups = _context.Groups
+                    .Where(x => x.CourseId == entity.Course_ID)
+                    .ToList();
+                GroupRepository groupRepository = new GroupRepository(_context);
+                foreach (var group in courseGroups)
+                {
+                    groupRepository.Delete(group);
+                }
+                _context.Courses.Remove(entity);
+            }
+            else
+                return;
         }
-        public void Update(Course entity)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(Course entity) => _context.Courses.Update(entity);
 
         public List<Course> GetAll() => _context.Courses.ToList();
 

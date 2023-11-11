@@ -14,5 +14,9 @@ namespace DbContextClasses
         public string Course_Name { get; set;}
         public string Course_Description { get; set;}
         public List<GroupStudent> Groups { get; set; }
+        public override string ToString()
+        {
+            return this.Course_Name;
+        }
     }
 }

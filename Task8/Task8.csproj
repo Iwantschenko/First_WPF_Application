@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DbContextClasses\DbContextClasses.csproj" />
+    <ProjectReference Include="..\FunctionRepository\FunctionRepository.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>
