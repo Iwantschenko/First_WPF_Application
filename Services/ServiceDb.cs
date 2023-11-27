@@ -2,10 +2,10 @@
 
 namespace Services
 {
-    public class ServicesForRepository<T>
+    public class ServiceDb<T>
     {
         private readonly IRepository<T> _repository;
-        public ServicesForRepository(IRepository<T> repository)
+        public ServiceDb(IRepository<T> repository)
         {
             _repository = repository;
         }

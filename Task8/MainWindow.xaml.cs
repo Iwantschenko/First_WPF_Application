@@ -1,10 +1,12 @@
 ﻿using DbContextClasses;
 using FunctionRepository;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,22 +22,38 @@ using Task8.UserControlls;
 
 namespace Task8
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+   
     public partial class MainWindow : Window
     {
-        static DataBaseContextClass db = new DataBaseContextClass();
-        static CourseRepository courseRepository = new CourseRepository(db);
-        static GroupRepository groupRepository = new GroupRepository(db);
-        static StudentRepository studentRepository = new StudentRepository(db);
-        public static ServicesForRepository<Course> courseServise = new ServicesForRepository<Course>(courseRepository);
-        public static ServicesForRepository<GroupStudent> groupService = new ServicesForRepository<GroupStudent>(groupRepository);
-        public static ServicesForRepository<Student> studentService = new ServicesForRepository<Student>(studentRepository);
+        public static ServiceDb<Course> courseServise {  get; private set; } 
+        public static ServiceDb<GroupStudent> groupService {  get; private set; }
+        public static ServiceDb<Teacher> teacherService {  get; private set; }
+        public static ServiceDb<Student> studentService {  get; private set; }
         public MainWindow()
         {
             InitializeComponent();
-           
+
+            #region//SetServices
+            var collectionService = new ServiceCollection()
+                .AddDbContext<DataBaseContextClass>()
+                .AddScoped<IRepository<Course>, CourseRepository>()
+                .AddScoped<IRepository<GroupStudent>, GroupRepository>()
+                .AddScoped<IRepository<Teacher>, TeacherRepository>()
+                .AddScoped<IRepository<Student>, StudentRepository>()
+                .AddScoped<ServiceDb<Course>>()
+                .AddScoped<ServiceDb<GroupStudent>>()
+                .AddScoped<ServiceDb<Teacher>>()
+                .AddScoped<ServiceDb<Student>>()
+                .BuildServiceProvider();
+
+            var scope = collectionService.CreateScope();
+            courseServise = scope.ServiceProvider.GetRequiredService<ServiceDb<Course>>();
+            groupService = scope.ServiceProvider.GetRequiredService<ServiceDb<GroupStudent>>();
+            teacherService = scope.ServiceProvider.GetRequiredService<ServiceDb<Teacher>>();
+            studentService = scope.ServiceProvider.GetRequiredService<ServiceDb<Student>>();
+            #endregion
+
+            #region//Fill_TreeView
             List<TreeViewControll> treeViewList = new List<TreeViewControll>();
             foreach (var dbCourse in courseServise.GetAll())
             {
@@ -57,8 +75,9 @@ namespace Task8
                 treeViewList.Add(branch);
             }
             Tree.ItemsSource = treeViewList;
+            #endregion
         }
-        
+
         private void Tree_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedTreeItem = Tree.SelectedItem;
