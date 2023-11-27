@@ -18,5 +18,9 @@ namespace DbContextClasses
         public Guid TeacherId { get; set; }
         public Teacher? Teacher { get; set; }
 
+        public override string ToString()
+        {
+            return Group_Name;
+        }
     }
 }

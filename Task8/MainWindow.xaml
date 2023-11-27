@@ -8,10 +8,26 @@
         Title="Interface for Courses DataBase" Height="600" Width="1000">
     
     <DockPanel Margin="10">
-        <TreeView    DockPanel.Dock="Left" BorderBrush="Black"  >
-            
-        </TreeView>
+        <StackPanel Width="200" DockPanel.Dock="Left" Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+            <Button Name="CourseButton" Click="CourseButton_Click">Course</Button >
+            <TreeView    x:Name="Tree" MouseDoubleClick="Tree_MouseDoubleClick">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate   ItemsSource="{Binding Path=Groups}">
+                        <TextBlock   Text="{Binding Courses}"/>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Group}" />
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </StackPanel>
+
         
+        <TabControl x:Name="Tabs"  />
+
+
     </DockPanel>
 
 </Window>
