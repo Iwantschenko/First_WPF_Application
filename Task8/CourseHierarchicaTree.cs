@@ -10,13 +10,13 @@ using System.Windows.Controls;
 
 namespace Task8
 {
-    public class TreeViewControll 
+    public class CourseHierarchicaTree 
     {
         public Course Courses { get; set; }
-        public ObservableCollection<LowTree> Groups { get; set; }
-        public TreeViewControll()
+        public ObservableCollection<GroupHierarchicalLowTree> Groups { get; set; }
+        public CourseHierarchicaTree()
         {
-            Groups = new ObservableCollection<LowTree>();
+            Groups = new ObservableCollection<GroupHierarchicalLowTree>();
         }
         public event ProgressChangedEventHandler? ProgressChanged;
 

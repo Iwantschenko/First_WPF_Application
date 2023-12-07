@@ -34,7 +34,17 @@ namespace FunctionRepository
             else
                 return;
         }
-        public void Update(Course entity) => _context.Courses.Update(entity);
+        public void Update(Course entity) 
+        {
+            var course =  GetId(entity.Course_ID);
+            if (course != null )
+            {
+                course.Course_Name = entity.Course_Name;
+                course.Course_Description = entity.Course_Description;
+
+                _context.Courses.Update(course);
+            }
+        }
 
         public List<Course> GetAll() => _context.Courses.ToList();
 

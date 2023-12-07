@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task8"
         mc:Ignorable="d"
-        Title="Interface for Courses DataBase" Height="600" Width="1000">
+        Title="Interface for Courses DataBase" Height="600" Width="1000"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow">
+ 
     
     <DockPanel Margin="10">
         <StackPanel Width="200" DockPanel.Dock="Left" Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >

@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Name="Panel">
         <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <ListView Height="400" Name="GroupList" >
+            <ListView Height="400" Name="groupListUI" >
                 <ListView.View >
                     <GridView >
                         <GridViewColumn DisplayMemberBinding="{Binding Group.Group_Id}">Group ID</GridViewColumn>

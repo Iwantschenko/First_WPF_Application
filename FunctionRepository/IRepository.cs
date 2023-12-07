@@ -12,8 +12,8 @@ namespace FunctionRepository
         void AddRange(IEnumerable<T> entity);
         void Update(T entity);
         void Delete(T entity);
-        void Save();
         T GetId(Guid id);
+        void Save ();
         List<T> GetAll();
     }
 }

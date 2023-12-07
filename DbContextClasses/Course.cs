@@ -18,5 +18,6 @@ namespace DbContextClasses
         {
             return this.Course_Name;
         }
+        
     }
 }

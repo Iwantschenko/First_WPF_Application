@@ -1,7 +1,12 @@
 ﻿using DbContextClasses;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,14 +26,22 @@ namespace Task8.UserControlls
     /// </summary>
     public partial class GroupTabControll : UserControl
     {
-        public GroupTabControll()
+        private ServiceDb<GroupStudent> _groupService;
+        private ResourceManager _resources;
+        private ObservableCollection<GroupHierarchicalLowTree> _groupListView;
+        public GroupTabControll(IServiceScope scope )
         {
+            _resources = new ResourceManager("Task8.Resource1", Assembly.GetExecutingAssembly());
+            
+            _groupListView = new ObservableCollection<GroupHierarchicalLowTree>();
+
+            _groupService = scope.ServiceProvider.GetRequiredService<ServiceDb<GroupStudent>>();
             InitializeComponent();
         }
-        public TabItem CreateTabItem(TreeViewControll item)
+        public TabItem CreateTabItem(CourseHierarchicaTree item)
         {
-
-            GroupList.ItemsSource = item.Groups;
+            _groupListView = item.Groups;
+            groupListUI.ItemsSource = _groupListView;
             return new TabItem()
             {
                 Header = $"{item.Courses.Course_Name} course",
@@ -37,23 +50,28 @@ namespace Task8.UserControlls
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            Course course = GroupList.SelectedItem as Course;
-            if (course != null)
+            if (groupListUI.SelectedItem != null && groupListUI.SelectedItem is GroupHierarchicalLowTree)
             {
-                MessageBox.Show(GroupList.SelectedItem.ToString());
+                GroupHierarchicalLowTree groupBranch = (GroupHierarchicalLowTree)groupListUI.SelectedItem;
+                if (MessageBox.Show(_resources.GetString("Delete"), "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    _groupListView.Remove(groupBranch);
+                    _groupService.Remove(groupBranch.Group);
+                    _groupService.Save();
+                }
             }
-            else MessageBox.Show("Select item, please!");
+            else
+                return;
 
         }
-
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(GroupList.SelectedItem.ToString());
-        }
+            MessageBox.Show(groupListUI.SelectedItem.ToString());
+        }//none
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(GroupList.SelectedItem.ToString());
-        }
+            MessageBox.Show(groupListUI.SelectedItem.ToString());
+        }//none
     }
 }

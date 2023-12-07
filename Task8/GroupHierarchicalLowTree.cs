@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Task8
 {
-    public class LowTree
+    public class GroupHierarchicalLowTree
     {
         public GroupStudent Group { get; set; }
         public ObservableCollection<Student> Students { get; set; }
-        public LowTree()
+        public GroupHierarchicalLowTree()
         {
             Students = new ObservableCollection<Student>();
         }

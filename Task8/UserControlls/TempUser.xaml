@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Task8.UserControlls.TempUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Task8.UserControlls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Name="Panel" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition  Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <!--Elements list -->
+        <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+            <ListView  Name="courseListUI">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Course_ID}">ID</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Course_Name}">Name</GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Course_Description}">Description</GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+
+        <!--Buttons C. E. D. -->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="Create" Margin="5" Grid.Column="0" Click="Create_Click" >Create</Button>
+            <Button Name="Edit" Margin="5" Grid.Column="1" Click="Edit_Click">Edit</Button>
+            <Button Name="Delete" Margin="5" Grid.Column="2" Click="Delete_Click" >Delete</Button>
+        </Grid>
+        <!--Edition panel -->
+        <StackPanel Grid.Column="1" Name ="EditionPanel">
+            <TextBlock HorizontalAlignment="Center"> ID</TextBlock>
+            <TextBox Name="IdBox" Text="{Binding Course_ID}" Margin="5" IsReadOnly="True" Background="#F0ECEB" Height="25"></TextBox>
+            <TextBlock HorizontalAlignment="Center"> Name</TextBlock>
+            <TextBox x:Name="NameBox" Margin="5" Background="#F0ECEB" Height="25"></TextBox>
+            <TextBlock HorizontalAlignment="Center"> Description</TextBlock>
+            <TextBox Name="DescriptionBox" Margin="5" Background="#F0ECEB" Height="25"></TextBox>
+            <Button Name="SaveButton" Margin="5" Width="100" Height="25" Click="Save_Click">Save</Button>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

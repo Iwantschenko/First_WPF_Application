@@ -1,7 +1,13 @@
 ﻿using DbContextClasses;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Task8.UserControlls
 {
@@ -21,13 +28,24 @@ namespace Task8.UserControlls
     /// </summary>
     public partial class StudentsTabControll : UserControl
     {
-        public StudentsTabControll()
+        private ServiceDb<GroupStudent> _groupService;
+        private ServiceDb<Student> _studentService;
+        private ResourceManager _resources;
+
+        private ObservableCollection<Student> _studentListView;
+        public StudentsTabControll(IServiceScope scope)
         {
             InitializeComponent();
+             _resources = new ResourceManager("Task8.Resource1" , Assembly.GetExecutingAssembly());
+            _studentListView = new ObservableCollection<Student>();
+
+            _groupService = scope.ServiceProvider.GetRequiredService<ServiceDb<GroupStudent>>();
+            _studentService = scope.ServiceProvider.GetRequiredService<ServiceDb<Student>>();
         }
-        public TabItem CreateTabItem(LowTree item)
+        public TabItem CreateTabItem(GroupHierarchicalLowTree item)
         {
-            StudentList.ItemsSource = item.Students;
+            _studentListView = item.Students;
+            StudentListUI.ItemsSource = _studentListView;
             return new TabItem()
             {
                 Header = $"{item.Group.Group_Name} Group",
@@ -36,37 +54,28 @@ namespace Task8.UserControlls
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (StudentList.SelectedItem == null) 
+            if (StudentListUI.SelectedItem != null && StudentListUI.SelectedItem is Student)
             {
-                MessageBox.Show("Select item");
-                return;
-            }
-
-            try 
-            {
-                if (MessageBoxResult.Yes == MessageBox.Show($"You want to delete student {StudentList.SelectedItem} ", "Delete", MessageBoxButton.YesNo))
+                Student student = StudentListUI.SelectedItem as Student;
+                var resultMessege = MessageBox.Show(_resources.GetString("Delete"), "Delete", MessageBoxButton.YesNo);
+                if (resultMessege == MessageBoxResult.Yes)
                 {
-                    
+                    _studentListView.Remove(student);
+                    _studentService.Remove(student);
+                    _studentService.Save();
                 }
-                else
-                    return;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
+            else
+                return;
         }
-
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(StudentList.SelectedItem.ToString());
+            MessageBox.Show(StudentListUI.SelectedItem.ToString());
         }
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(StudentList.SelectedItem.ToString());
+            MessageBox.Show(StudentListUI.SelectedItem.ToString());
         }
     }
 }

@@ -1,7 +1,12 @@
 ﻿using DbContextClasses;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,14 +26,23 @@ namespace Task8.UserControlls
     /// </summary>
     public partial class CourseTabControlls : UserControl
     {
-        public CourseTabControlls()
+        private  ServiceDb<Course> _courseService;
+
+        private  ResourceManager _resources;
+        private  ObservableCollection<Course> _courseListView;
+        
+        public CourseTabControlls(IServiceScope scope)
         {
             InitializeComponent();
-        }
-        public TabItem CreateTabItem(List<Course> courses)
-        {
+            _resources = new ResourceManager("Task8.Resource1", Assembly.GetExecutingAssembly());
+            _courseListView = new ObservableCollection<Course>();
 
-            courseList.ItemsSource = courses;
+            _courseService = scope.ServiceProvider.GetRequiredService<ServiceDb<Course>>();
+        }
+        public TabItem CreateTabItem(ObservableCollection<Course> courses)
+        {
+            _courseListView = courses;
+            courseListUI.ItemsSource = _courseListView;
             return new TabItem()
             {
                 Header = "Courses",
@@ -39,23 +53,29 @@ namespace Task8.UserControlls
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
 
-            if (courseList.SelectedItem != null)
+            if (courseListUI.SelectedItem != null && courseListUI.SelectedItem is Course)
             {
-                Course course = courseList.SelectedItem as Course;
-                MessageBox.Show($"Are you sure you want to delete? Course {course.Course_Name}","Delete",MessageBoxButton.YesNo);
+                Course course = (Course) courseListUI.SelectedItem;
+                var resultMessege = MessageBox.Show(_resources.GetString("Delete"), "Delete", MessageBoxButton.YesNo);
+                if (resultMessege == MessageBoxResult.Yes)
+                {
+                    _courseListView.Remove(course);
+                    _courseService.Remove(course);
+                    _courseService.Save();
+                }
             }
             else
-                MessageBox.Show("Course not selected");
+                return;
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(courseList.SelectedItem.ToString());
+            MessageBox.Show(courseListUI.SelectedItem.ToString());
         }
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(courseList.SelectedItem.ToString());
+            MessageBox.Show(courseListUI.SelectedItem.ToString());
         }
     }
 }
