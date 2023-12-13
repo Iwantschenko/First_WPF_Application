@@ -61,20 +61,20 @@ namespace Task8 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You want to create or change this course?.
+        /// </summary>
+        internal static string CreateChangeYes {
+            get {
+                return ResourceManager.GetString("CreateChangeYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This group already exists.
         /// </summary>
         internal static string CreateError {
             get {
                 return ResourceManager.GetString("CreateError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You want to create this course?.
-        /// </summary>
-        internal static string CreateYes {
-            get {
-                return ResourceManager.GetString("CreateYes", resourceCulture);
             }
         }
         

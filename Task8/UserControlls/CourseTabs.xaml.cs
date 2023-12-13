@@ -38,6 +38,7 @@ namespace Task8.UserControlls
             _courseListView = new ObservableCollection<Course>();
             _courseService = scope.ServiceProvider.GetRequiredService<ServiceDb<Course>>();
         }
+
         public TabItem CreateTabItem(ObservableCollection<Course> courses)
         {
             _courseListView = courses;
@@ -108,17 +109,19 @@ namespace Task8.UserControlls
                     Course_Name = NameBox.Text,
                     Course_Description = DescriptionBox.Text
                 };
-
-                if (MessageBox.Show(_resources.GetString("CreateYes"),"Create Course" , MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                
+                if (MessageBox.Show(_resources.GetString("CreateChangeYes"),"Create Course" , MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     if (_courseService.GetId(course.Course_ID) == null)
                     {
                         _courseService.Add(course);
                         _courseListView.Add(course);
                     }
-                    else
+                    if (_courseService.GetId(course.Course_ID) != null)
                     {
                         _courseService.Update(course);
+
+
                          int index = _courseListView.IndexOf( _courseListView.FirstOrDefault(x => x.Course_ID == course.Course_ID));
                         _courseListView[index] = course;
                         

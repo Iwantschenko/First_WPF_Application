@@ -15,6 +15,7 @@ namespace DbContextClasses
         {
 
             optionsBuilder.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=DbWPF;Trusted_Connection=True;");
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

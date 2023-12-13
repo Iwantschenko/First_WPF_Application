@@ -79,16 +79,7 @@ namespace Task8
             #endregion
 
             
-            ObservableCollection<Course> courseCollection = new ObservableCollection<Course>();
-            foreach (var course in _courseServise.GetAll())
-            {
-                courseCollection.Add(course);
-            }
-            //test
-            TempUser tempUser = new TempUser(_Scope);
-            TabItem tabItem = tempUser.CreateTabItem(courseCollection);
-            Tabs.Items.Add(tabItem);
-            Tabs.SelectedItem = tabItem;
+            
         }
 
         private void Tree_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -123,16 +114,20 @@ namespace Task8
         }
         private void CourseButton_Click(object sender, RoutedEventArgs e)
         { 
-            CourseTabControlls courseTabControll = new CourseTabControlls(_Scope);
-            ObservableCollection<Course> courseCollection  = new ObservableCollection<Course>();
+            
+            ObservableCollection<Course> courseCollection = new ObservableCollection<Course>();
             foreach (var course in _courseServise.GetAll())
             {
                 courseCollection.Add(course);
             }
-            TabItem item = courseTabControll.CreateTabItem(courseCollection);
-            Tabs.Items.Add(item);
-            Tabs.SelectedItem = item;
+            
+            TempUser tempUser = new TempUser(_Scope);
+            TabItem tabItem = tempUser.CreateTabItem(courseCollection);
+            Tabs.Items.Add(tabItem);
+            Tabs.SelectedItem = tabItem;
         }
+
+       
     }
 }
  

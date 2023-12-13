@@ -1,4 +1,5 @@
 ﻿using DbContextClasses;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,20 +30,18 @@ namespace FunctionRepository
                 {
                     groupRepository.Delete(group);
                 }
-                _context.Courses.Remove(entity);
+                _context.Courses.Remove(_context.Courses.FirstOrDefault(x=> x.Course_ID == entity.Course_ID));
             }
             else
                 return;
         }
         public void Update(Course entity) 
         {
-            var course =  GetId(entity.Course_ID);
-            if (course != null )
+            var course = GetId(entity.Course_ID);
+            if (course != null)
             {
                 course.Course_Name = entity.Course_Name;
                 course.Course_Description = entity.Course_Description;
-
-                _context.Courses.Update(course);
             }
         }
 
@@ -50,7 +49,7 @@ namespace FunctionRepository
 
         public Course GetId(Guid id) => _context.Courses.FirstOrDefault(x => x.Course_ID == id);
 
-        public void Save() => _context.SaveChanges();   
+        public async void Save() => await _context.SaveChangesAsync();   
 
     }
 }

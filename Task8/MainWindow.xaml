@@ -27,9 +27,10 @@
             </TreeView>
         </StackPanel>
 
-        
-        <TabControl x:Name="Tabs"  />
 
+        <TabControl x:Name="Tabs" Margin="10">
+            
+        </TabControl>
 
     </DockPanel>
 
