@@ -12,7 +12,11 @@
     
     <DockPanel Margin="10">
         <StackPanel Width="200" DockPanel.Dock="Left" Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
-            <Button Name="CourseButton" Click="CourseButton_Click">Course</Button >
+            <Button Margin="5" Name="CourseButton" Click="CourseButton_Click">Show Courses</Button >
+            
+            <Button Margin="5" Name="TeacherButton" Click="TeacherButton_Click">Show Teachers</Button >
+
+            <TextBlock HorizontalAlignment="Center" FontSize="14"  >TreeView of Courses</TextBlock>
             <TreeView    x:Name="Tree" MouseDoubleClick="Tree_MouseDoubleClick">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate   ItemsSource="{Binding Path=Groups}">

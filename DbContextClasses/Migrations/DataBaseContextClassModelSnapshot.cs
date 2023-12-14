@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContextClasses.Migrations
 {
-    [DbContext(typeof(DataBaseContextClass))]
+    [DbContext(typeof(DataBaseContext))]
     partial class DataBaseContextClassModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -96,11 +96,11 @@ namespace DbContextClasses.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Teacher_Description")
+                    b.Property<string>("Teacher_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Teacher_Name")
+                    b.Property<string>("Teacher_Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

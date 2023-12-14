@@ -34,9 +34,9 @@ namespace Task8
         {
             InitializeComponent();
 
-            #region//SetServices
+            #region SetServices
             var collectionService = new ServiceCollection()
-                .AddDbContext<DataBaseContextClass>()
+                .AddDbContext<DataBaseContext>()
                 .AddScoped<IRepository<Course>, CourseRepository>()
                 .AddScoped<IRepository<GroupStudent>, GroupRepository>()
                 .AddScoped<IRepository<Teacher>, TeacherRepository>()
@@ -54,7 +54,7 @@ namespace Task8
             _studentService = _Scope.ServiceProvider.GetRequiredService<ServiceDb<Student>>();
             #endregion
 
-            #region//Fill_TreeView
+            #region Fill_TreeView
             List<CourseHierarchicaTree> treeViewList = new List<CourseHierarchicaTree>();
             foreach (var dbCourse in _courseServise.GetAll())
             {
@@ -78,8 +78,6 @@ namespace Task8
             Tree.ItemsSource = treeViewList;
             #endregion
 
-            
-            
         }
 
         private void Tree_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -97,6 +95,33 @@ namespace Task8
                 MessageBox.Show($"Error with ->  {selectedTreeItem.ToString()}");
         }
 
+        private void CourseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            ObservableCollection<Course> courseCollection = new ObservableCollection<Course>();
+            foreach (var course in _courseServise.GetAll())
+            {
+                courseCollection.Add(course);
+            }
+            CoursesTabControll courseTab = new CoursesTabControll(_Scope);
+            TabItem tabItem = courseTab.CreateTabItem(courseCollection);
+            Tabs.Items.Add(tabItem);
+            Tabs.SelectedItem = tabItem;
+        }
+        
+        private void TeacherButton_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Teacher> teacherCollection = new ObservableCollection<Teacher>();
+            foreach (var teacher in _teacherService.GetAll())
+            {
+                teacherCollection.Add(teacher);
+            }
+            TeachersTabController teacherTab = new TeachersTabController(_Scope);
+            TabItem tabItem = teacherTab.CreateTabItem(teacherCollection);
+            Tabs.Items.Add(tabItem);
+            Tabs.SelectedItem = tabItem;
+        }
+
         private void ClickOnCourse(CourseHierarchicaTree item)
         {
             GroupTabControll groupTabControll = new GroupTabControll(_Scope);
@@ -112,22 +137,7 @@ namespace Task8
             Tabs.SelectedItem = tabItem;
 
         }
-        private void CourseButton_Click(object sender, RoutedEventArgs e)
-        { 
-            
-            ObservableCollection<Course> courseCollection = new ObservableCollection<Course>();
-            foreach (var course in _courseServise.GetAll())
-            {
-                courseCollection.Add(course);
-            }
-            
-            TempUser tempUser = new TempUser(_Scope);
-            TabItem tabItem = tempUser.CreateTabItem(courseCollection);
-            Tabs.Items.Add(tabItem);
-            Tabs.SelectedItem = tabItem;
-        }
-
-       
+        
     }
 }
  

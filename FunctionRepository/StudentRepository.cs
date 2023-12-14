@@ -9,8 +9,8 @@ namespace FunctionRepository
 {
     public class StudentRepository : IRepository<Student>
     {
-        private readonly DataBaseContextClass _context;
-        public StudentRepository(DataBaseContextClass context)
+        private readonly DataBaseContext _context;
+        public StudentRepository(DataBaseContext context)
         {
             _context = context;
         }

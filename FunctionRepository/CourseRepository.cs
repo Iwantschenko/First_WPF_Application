@@ -10,8 +10,8 @@ namespace FunctionRepository
 {
     public class CourseRepository : IRepository<Course>
     {
-        private readonly DataBaseContextClass _context;
-        public CourseRepository(DataBaseContextClass context) 
+        private readonly DataBaseContext _context;
+        public CourseRepository(DataBaseContext context) 
         {
             _context = context;
         }
@@ -32,8 +32,6 @@ namespace FunctionRepository
                 }
                 _context.Courses.Remove(_context.Courses.FirstOrDefault(x=> x.Course_ID == entity.Course_ID));
             }
-            else
-                return;
         }
         public void Update(Course entity) 
         {

@@ -9,8 +9,8 @@ namespace FunctionRepository
 {
     public class TeacherRepository : IRepository<Teacher>
     {
-        private readonly DataBaseContextClass _context;
-        public TeacherRepository(DataBaseContextClass context)
+        private readonly DataBaseContext _context;
+        public TeacherRepository(DataBaseContext context)
         {
             _context = context;
         }
@@ -31,12 +31,20 @@ namespace FunctionRepository
                 {
                     groupRepository.Delete(group);
                 }
-                _context.Teachers.Remove(entity);
+                _context.Teachers.Remove(_context.Teachers.FirstOrDefault(x => x.Teacher_Id == entity.Teacher_Id));
             }
-            else 
-                return;
         }
-        public void Update(Teacher entity)  => _context.Teachers.Update(entity);
+
+        public void Update(Teacher entity) 
+        {
+            Teacher teacher = _context.Teachers.FirstOrDefault(x => x.Teacher_Id == entity.Teacher_Id);
+            if (teacher != null )
+            {
+                teacher.Teacher_Name = entity.Teacher_Name;
+                teacher.Teacher_Surname = entity.Teacher_Surname;
+            }
+        }
+
         public List<Teacher> GetAll() => _context.Teachers.ToList();
 
         public Teacher GetId(Guid id) => _context.Teachers.FirstOrDefault(x => x.Teacher_Id == id);

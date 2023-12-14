@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbContextClasses.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231031073446_FirstMig")]
-    partial class FirstMig
+    [Migration("20231213204309_SecondMig")]
+    partial class SecondMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,11 +99,11 @@ namespace DbContextClasses.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Teacher_Description")
+                    b.Property<string>("Teacher_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Teacher_Name")
+                    b.Property<string>("Teacher_Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

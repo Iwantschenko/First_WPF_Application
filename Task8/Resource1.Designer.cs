@@ -61,6 +61,15 @@ namespace Task8 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can`t delete , because this teacher have group!!!.
+        /// </summary>
+        internal static string _DeleteTeacher {
+            get {
+                return ResourceManager.GetString("!DeleteTeacher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You want to create or change this course?.
         /// </summary>
         internal static string CreateChangeYes {

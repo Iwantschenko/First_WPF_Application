@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 namespace DbContextClasses
 {
-    public class DataBaseContextClass : DbContext
+    public class DataBaseContext : DbContext
     {
         public DbSet<Course> Courses { get; set; }
         public DbSet<GroupStudent> Groups { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DataBaseContextClass() 
+        public DataBaseContext() 
         {
             Database.Migrate();
         }

@@ -11,8 +11,8 @@ namespace FunctionRepository
 {
     public class GroupRepository : IRepository<GroupStudent>
     {
-        private readonly DataBaseContextClass _context;
-        public GroupRepository(DataBaseContextClass context)
+        private readonly DataBaseContext _context;
+        public GroupRepository(DataBaseContext context)
         {
             this._context = context;
         }

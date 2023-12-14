@@ -25,13 +25,13 @@ namespace Task8.UserControlls
     /// <summary>
     /// Interaction logic for TempUser.xaml
     /// </summary>
-    public partial class TempUser : UserControl
+    public partial class CoursesTabControll : UserControl
     {
         private ServiceDb<Course> _courseService;
 
         private ResourceManager _resources;
         private ObservableCollection<Course> _courseListView;
-        public TempUser(IServiceScope scope)
+        public CoursesTabControll(IServiceScope scope)
         {
             InitializeComponent();
             _resources = new ResourceManager("Task8.Resource1", Assembly.GetExecutingAssembly());
@@ -50,29 +50,26 @@ namespace Task8.UserControlls
             };
         }
 
-        
-
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            if (courseListUI.SelectedItem != null)
-            try
-            {
-                Course course = courseListUI.SelectedItem as Course;
-                IdBox.Text = course.Course_ID.ToString();
-                NameBox.Text = course.Course_Name;
-                DescriptionBox.Text = course.Course_Description;    
-            }
-            catch(Exception ex ) 
-            {
-                MessageBox.Show(ex.Message);
-                return;
+            if (courseListUI.SelectedItem != null) 
+            { 
+                try
+                {
+                    Course course = courseListUI.SelectedItem as Course;
+                    IdBox.Text = course.Course_ID.ToString();
+                    NameBox.Text = course.Course_Name;
+                    DescriptionBox.Text = course.Course_Description;    
+                }
+                catch(Exception ex ) 
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {
                 MessageBox.Show(_resources.GetString("EditSelect")) ;
             }
-
-
         }
 
         private void Create_Click(object sender, RoutedEventArgs e)
@@ -95,8 +92,6 @@ namespace Task8.UserControlls
                     _courseService.Save();
                 }
             }
-            else
-                return;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -116,6 +111,7 @@ namespace Task8.UserControlls
                     {
                         _courseService.Add(course);
                         _courseListView.Add(course);
+                        _courseService.Save();
                     }
                     if (_courseService.GetId(course.Course_ID) != null)
                     {
@@ -124,17 +120,13 @@ namespace Task8.UserControlls
 
                          int index = _courseListView.IndexOf( _courseListView.FirstOrDefault(x => x.Course_ID == course.Course_ID));
                         _courseListView[index] = course;
-                        
+                        _courseService.Save();
                     }
-                    _courseService.Save();
                 }
-                else 
-                    return;
             }
             catch (Exception ex) 
             {
                 MessageBox.Show(ex.Message);
-                return;
             }
         }
     }

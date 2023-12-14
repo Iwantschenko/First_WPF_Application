@@ -12,7 +12,8 @@ namespace DbContextClasses
         [Key]
         public Guid Teacher_Id { get; set; }
         public string Teacher_Name { get; set; }
-        public string Teacher_Description { get; set; }
+        public string Teacher_Surname { get; set; }
+        
         public List<GroupStudent> Groups { get; set; }
 
     }
