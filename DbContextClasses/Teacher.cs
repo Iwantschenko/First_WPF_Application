@@ -16,5 +16,9 @@ namespace DbContextClasses
         
         public List<GroupStudent> Groups { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Teacher_Name} {Teacher_Surname}";
+        }
     }
 }

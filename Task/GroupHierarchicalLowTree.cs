@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task8
+namespace Task
 {
     public class GroupHierarchicalLowTree
     {
@@ -22,3 +22,5 @@ namespace Task8
         }
     }
 }
+
+

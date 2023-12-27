@@ -19,27 +19,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Task8.UserControlls
+namespace Task.UserControll
 {
     /// <summary>
-    /// Interaction logic for TeachersTabController.xaml
+    /// Interaction logic for TeachersTabControll.xaml
     /// </summary>
-    public partial class TeachersTabController : UserControl
+    public partial class TeachersTabControll : UserControl
     {
+
         private ResourceManager _resources;
         private ObservableCollection<Teacher> _teachersListView;
         private ServiceDb<Teacher> _teachersService;
         private ServiceDb<GroupStudent> _groupService;
-        public TeachersTabController(IServiceScope scope)
+        public TeachersTabControll(IServiceScope scope)
         {
-            _resources = new ResourceManager("Task8.Resource1", Assembly.GetExecutingAssembly());
+            _resources = new ResourceManager("Task.Resource2", Assembly.GetExecutingAssembly());
             _teachersListView = new ObservableCollection<Teacher>();
             _teachersService = scope.ServiceProvider.GetRequiredService<ServiceDb<Teacher>>();
             _groupService = scope.ServiceProvider.GetRequiredService<ServiceDb<GroupStudent>>();
 
             InitializeComponent();
         }
-    
+
         public TabItem CreateTabItem(ObservableCollection<Teacher> teachers)
         {
             _teachersListView = teachers;

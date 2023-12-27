@@ -28,13 +28,18 @@ namespace FunctionRepository
                 _context.Students.RemoveRange(_context.Students
                     .Where(x=> x.GroupId == entity.Group_Id)
                     .ToList());
-                _context.Groups.Remove(entity);
+                _context.Groups.Remove(GetId(entity.Group_Id));
             }
-            else
-                return;
-
         }
-        public void Update(GroupStudent entity) => _context.Groups.Update(entity);
+        public void Update(GroupStudent entity) 
+        {
+            var group = GetId(entity.Group_Id);
+            if (group != null)
+            {
+                group.Group_Name = entity.Group_Name;
+                group.TeacherId = entity.TeacherId;
+            }
+        }
         public List<GroupStudent> GetAll() => _context.Groups.ToList();
 
         public GroupStudent GetId(Guid id) => _context.Groups.FirstOrDefault(x => x.Group_Id == id);

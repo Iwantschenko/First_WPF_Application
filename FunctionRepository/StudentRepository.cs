@@ -17,8 +17,22 @@ namespace FunctionRepository
 
         public void Add(Student entity) => _context.Students.Add(entity);      
         public void AddRange(IEnumerable<Student> entity) => _context.Students.AddRange(entity);
-        public void Delete(Student entity) => _context.Students.Remove(entity);
-        public void Update(Student entity) => _context.Students.Update(entity);
+        public void Delete(Student entity) 
+        {
+            if (_context.Students.Contains(entity))
+            {
+                _context.Students.Remove(GetId(entity.Student_Id));
+            }
+        }
+        public void Update(Student entity) 
+        {
+            Student student = GetId(entity.Student_Id);
+            if (student != null) 
+            {
+                student.First_Name = entity.First_Name;
+                student.Last_Name = entity.Last_Name;
+            }
+        }
         public List<Student> GetAll() => _context.Students.ToList();
         public Student GetId(Guid id) => _context.Students.FirstOrDefault(x=> x.Student_Id == id);
         public void Save() => _context.SaveChanges();

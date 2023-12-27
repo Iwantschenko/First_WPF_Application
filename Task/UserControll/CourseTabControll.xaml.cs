@@ -14,27 +14,26 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Task8.UserControlls
+namespace Task.UserControll
 {
     /// <summary>
-    /// Interaction logic for TempUser.xaml
+    /// Interaction logic for CourseTabControll.xaml
     /// </summary>
-    public partial class CoursesTabControll : UserControl
+    public partial class CourseTabControll : UserControl
     {
         private ServiceDb<Course> _courseService;
 
         private ResourceManager _resources;
         private ObservableCollection<Course> _courseListView;
-        public CoursesTabControll(IServiceScope scope)
+        public CourseTabControll(IServiceScope scope)
         {
             InitializeComponent();
-            _resources = new ResourceManager("Task8.Resource1", Assembly.GetExecutingAssembly());
+            _resources = new ResourceManager("Task.Resource2", Assembly.GetExecutingAssembly());
             _courseListView = new ObservableCollection<Course>();
             _courseService = scope.ServiceProvider.GetRequiredService<ServiceDb<Course>>();
         }
@@ -52,23 +51,23 @@ namespace Task8.UserControlls
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            if (courseListUI.SelectedItem != null) 
-            { 
+            if (courseListUI.SelectedItem != null)
+            {
                 try
                 {
                     Course course = courseListUI.SelectedItem as Course;
                     IdBox.Text = course.Course_ID.ToString();
                     NameBox.Text = course.Course_Name;
-                    DescriptionBox.Text = course.Course_Description;    
+                    DescriptionBox.Text = course.Course_Description;
                 }
-                catch(Exception ex ) 
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show(_resources.GetString("EditSelect")) ;
+                MessageBox.Show(_resources.GetString("EditSelect"));
             }
         }
 
@@ -104,8 +103,8 @@ namespace Task8.UserControlls
                     Course_Name = NameBox.Text,
                     Course_Description = DescriptionBox.Text
                 };
-                
-                if (MessageBox.Show(_resources.GetString("CreateChangeYes"),"Create Course" , MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+
+                if (MessageBox.Show(_resources.GetString("CreateChangeYes"), "Create Course", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     if (_courseService.GetId(course.Course_ID) == null)
                     {
@@ -118,13 +117,13 @@ namespace Task8.UserControlls
                         _courseService.Update(course);
 
 
-                         int index = _courseListView.IndexOf( _courseListView.FirstOrDefault(x => x.Course_ID == course.Course_ID));
+                        int index = _courseListView.IndexOf(_courseListView.FirstOrDefault(x => x.Course_ID == course.Course_ID));
                         _courseListView[index] = course;
                         _courseService.Save();
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
