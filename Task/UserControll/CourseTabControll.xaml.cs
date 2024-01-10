@@ -44,7 +44,7 @@ namespace Task.UserControll
             courseListUI.ItemsSource = _courseListView;
             return new TabItem()
             {
-                Header = "Courses",
+                
                 Content = Panel
             };
         }

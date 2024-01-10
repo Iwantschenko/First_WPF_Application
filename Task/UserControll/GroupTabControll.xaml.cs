@@ -33,6 +33,7 @@ namespace Task.UserControll
         private ServiceDb<GroupStudent> _groupService;
         private ServiceDb<Teacher> _teacherService;
         private ResourceManager _resources;
+        private ServiceDb<Student> _studentService;
 
         private Course _thisCourse;
         private ObservableCollection<GroupStudent> _groupListView;
@@ -46,6 +47,7 @@ namespace Task.UserControll
             _groupListView = new ObservableCollection<GroupStudent>();
             _groupService = scope.ServiceProvider.GetRequiredService<ServiceDb<GroupStudent>>();
             _teacherService = scope.ServiceProvider.GetRequiredService<ServiceDb<Teacher>>();
+            _studentService = scope.ServiceProvider.GetRequiredService<ServiceDb<Student>>();
             _thisCourse = new Course();
 
             InitializeComponent();
@@ -65,7 +67,7 @@ namespace Task.UserControll
 
             return new TabItem()
             {
-                Header = $"{item.Courses} groups",
+                
                 Content = Panel
             };
              
@@ -103,9 +105,15 @@ namespace Task.UserControll
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            
             if (groupListUI.SelectedItem != null && groupListUI.SelectedItem is GroupStudent)
             {
                 GroupStudent group = (GroupStudent)groupListUI.SelectedItem;
+                if (_studentService.GetAll().FirstOrDefault(x=> x.GroupId == group.Group_Id) != null)
+                {
+                    MessageBox.Show(_resources.GetString("GroupNotNuLL"));
+                    return;
+                }
                 var resultMessege = MessageBox.Show(_resources.GetString("Delete"), "Delete", MessageBoxButton.YesNo);
                 if (resultMessege == MessageBoxResult.Yes)
                 {

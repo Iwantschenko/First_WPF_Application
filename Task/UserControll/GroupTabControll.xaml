@@ -43,6 +43,8 @@
         </Grid>
         <!--Edition panel -->
         <StackPanel Grid.Column="1" Name ="EditionPanel">
+            <TextBlock HorizontalAlignment="Center" FontSize="16">Group Editor</TextBlock>
+
             <TextBlock HorizontalAlignment="Center">ID group</TextBlock>
             <TextBox Name="IdBox" Margin="5" IsReadOnly="True" Background="#F0ECEB" Height="25"></TextBox>
             <TextBlock HorizontalAlignment="Center">Course</TextBlock>

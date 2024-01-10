@@ -47,7 +47,7 @@ namespace Task.UserControll
             teachersListUI.ItemsSource = _teachersListView;
             return new TabItem()
             {
-                Header = "Teachers",
+                
                 Content = Panel
             };
         }

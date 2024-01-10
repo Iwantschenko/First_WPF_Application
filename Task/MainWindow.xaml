@@ -13,8 +13,15 @@
             <Button Margin="5" Name="CourseButton" Click="CourseButton_Click">Show Courses</Button >
 
             <Button Margin="5" Name="TeacherButton" Click="TeacherButton_Click">Show Teachers</Button >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition  Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" FontSize="14"  >Courses Tree</TextBlock>
+                <Button x:Name="RefreshTree" Margin="1" Grid.Column="1" Click="RefreshTree_Click" >Refresh</Button>
 
-            <TextBlock HorizontalAlignment="Center" FontSize="14"  >TreeView of Courses</TextBlock>
+            </Grid>
             <TreeView    x:Name="Tree" MouseDoubleClick="Tree_MouseDoubleClick">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate   ItemsSource="{Binding Path=Groups}">
@@ -31,7 +38,7 @@
 
 
         <TabControl x:Name="Tabs" Margin="10">
-
+            
         </TabControl>
 
     </DockPanel>

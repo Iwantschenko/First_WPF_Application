@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocX" Version="2.5.0" />
+    <PackageReference Include="itext7" Version="7.0.4-netstandard" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DbContextClasses\DbContextClasses.csproj" />
     <ProjectReference Include="..\FunctionRepository\FunctionRepository.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />

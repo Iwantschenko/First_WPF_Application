@@ -25,7 +25,7 @@ namespace Task
         private ServiceDb<Teacher> _teacherService;
         private ServiceDb<Student> _studentService;
         private IServiceScope _Scope;
-        private List<CourseHierarchicaTree> _treeViewList;
+        private ObservableCollection<CourseHierarchicaTree> _treeViewList;
 
        
         
@@ -52,7 +52,8 @@ namespace Task
             _teacherService = _Scope.ServiceProvider.GetRequiredService<ServiceDb<Teacher>>();
             _studentService = _Scope.ServiceProvider.GetRequiredService<ServiceDb<Student>>();
             #endregion
-            _treeViewList = new List<CourseHierarchicaTree>();
+
+            _treeViewList = new ObservableCollection<CourseHierarchicaTree>();
             
             Fill_TreeViewList();
             Tree.ItemsSource = _treeViewList;
@@ -107,8 +108,11 @@ namespace Task
             {
                 courseCollection.Add(course);
             }
+
             CourseTabControll courseTab = new CourseTabControll(_Scope);
+            
             TabItem tabItem = courseTab.CreateTabItem(courseCollection);
+            tabItem.Header = CreateTabHeader("Courses");
             Tabs.Items.Add(tabItem);
             Tabs.SelectedItem = tabItem;
         }
@@ -122,6 +126,7 @@ namespace Task
             }
             TeachersTabControll teacherTab = new TeachersTabControll(_Scope);
             TabItem tabItem = teacherTab.CreateTabItem(teacherCollection);
+            tabItem.Header = CreateTabHeader("Teachers");
             Tabs.Items.Add(tabItem);
             Tabs.SelectedItem = tabItem;
         }
@@ -131,6 +136,8 @@ namespace Task
 
             GroupTabControll groupTabControll = new GroupTabControll(_Scope);
             TabItem tabItem = groupTabControll.CreateTabItem(item);
+
+            tabItem.Header = CreateTabHeader( $"{item.Courses.Course_Name} groups");
             Tabs.Items.Add(tabItem);
             Tabs.SelectedItem = tabItem;
         }
@@ -138,10 +145,36 @@ namespace Task
         {
             StudentTabControll studentsTabControll = new StudentTabControll(_Scope);
             TabItem tabItem = studentsTabControll.CreateTabItem(item);
+
+            tabItem.Header = CreateTabHeader( item.Group.Group_Name );
             Tabs.Items.Add(tabItem);
             Tabs.SelectedItem = tabItem;
 
         }
+        private StackPanel CreateTabHeader( string headText)
+        {
+            Button closeTab = new Button();
+            closeTab.Content = "X";
+            closeTab.Height = 20;
+            closeTab.Width = 20;
+            closeTab.Click += CloseTab_Click;
+            StackPanel header = new StackPanel();
+            header.Orientation = Orientation.Horizontal;
+            header.Children.Add(new TextBlock { Text = $"{headText}   " });
+            header.Children.Add(closeTab);
 
+            return header;
+        }
+
+        private void CloseTab_Click(object sender, RoutedEventArgs e)
+        {
+            Tabs.Items.RemoveAt(Tabs.SelectedIndex);
+        }
+
+        private void RefreshTree_Click(object sender, RoutedEventArgs e)
+        {
+            Fill_TreeViewList();
+            
+        }
     }
 }

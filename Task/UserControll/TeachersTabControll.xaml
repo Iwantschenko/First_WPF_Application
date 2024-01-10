@@ -42,6 +42,8 @@
         </Grid>
         <!--Edition panel -->
         <StackPanel Grid.Column="1" Name ="EditionPanel">
+            <TextBlock HorizontalAlignment="Center" FontSize="16">Teacher Editor</TextBlock>
+
             <TextBlock HorizontalAlignment="Center"> ID</TextBlock>
             <TextBox Name="IdBox" Text="{Binding Course_ID}" Margin="5" IsReadOnly="True" Background="#F0ECEB" Height="25"></TextBox>
             <TextBlock HorizontalAlignment="Center"> Name</TextBlock>

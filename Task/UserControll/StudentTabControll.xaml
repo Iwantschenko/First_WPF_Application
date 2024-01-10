@@ -42,18 +42,44 @@
             <Button Name="Delete" Margin="5" Grid.Column="2" Click="Delete_Click" >Delete</Button>
         </Grid>
         <!--Edition panel -->
-        <StackPanel Grid.Column="1" Name ="EditionPanel">
-            <TextBlock HorizontalAlignment="Center">ID student</TextBlock>
-            <TextBox Name="IdBox" Margin="5" IsReadOnly="True" Background="#F0ECEB" Height="25"></TextBox>
-            <TextBlock HorizontalAlignment="Center">Group</TextBlock>
-            <TextBox Name="IdGroupBox" Margin="5" IsReadOnly="True" Background="#F0ECEB" Height="25"></TextBox>
-            <TextBlock HorizontalAlignment="Center">First Name</TextBlock>
-            <TextBox x:Name="NameBox" Margin="5" Background="#F0ECEB" Height="25"></TextBox>
-            <TextBlock HorizontalAlignment="Center">Last Name</TextBlock>
-            <TextBox x:Name="SurnameBox" Margin="5" Background="#F0ECEB" Height="25"></TextBox>
+        <TabControl Grid.Column="1">
+            <TabItem Header="User">
+                <StackPanel  Name ="EditionPanel">
+                    <TextBlock HorizontalAlignment="Center" FontSize="16">Students Editor</TextBlock>
+                    <TextBlock HorizontalAlignment="Center">ID student</TextBlock>
+                    <TextBox Name="IdBox" Margin="5" IsReadOnly="True" Background="#F0ECEB" Height="25"></TextBox>
+                    <TextBlock HorizontalAlignment="Center">Group</TextBlock>
+                    <TextBox Name="IdGroupBox" Margin="5" IsReadOnly="True" Background="#F0ECEB" Height="25"></TextBox>
+                    <TextBlock HorizontalAlignment="Center">First Name</TextBlock>
+                    <TextBox x:Name="NameBox" Margin="5" Background="#F0ECEB" Height="25"></TextBox>
+                    <TextBlock HorizontalAlignment="Center">Last Name</TextBlock>
+                    <TextBox x:Name="SurnameBox" Margin="5" Background="#F0ECEB" Height="25"></TextBox>
 
-            <Button Name="SaveButton" Margin="5" Width="100" Height="25" Click="Save_Click">Save</Button>
+                    <Button Name="SaveButton" Margin="5" Width="100" Height="25" Click="Save_Click">Save</Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="File work">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center">Create file with current information</TextBlock>
+                    <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition  Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="wordRepBut" Grid.Column="0" Content="WORD Report" Height="25" Margin="5" Click="wordRepBut_Click" />
+                    <Button Name="PDFRepBut"  Grid.Column="1" Content="PDF Report"  Height="25" Margin="5" Click="PDFRepBut_Click" />
+                    </Grid>
+                    
+                    <TextBlock/>
+                    <Button Name="Export"  Margin="5" Height="25" Width="100" Click="Export_Click">Export</Button>
+                    <TextBox x:Name="pathBoxExport"  Margin="5" Background="#F0ECEB" Height="25"></TextBox>
+                    
+                    <Button Name="Import"  Margin="5" Height="25" Width="100" Click="Import_Click">Import</Button>
+                    <TextBox x:Name="pathBoxImport"  Margin="5" Background="#F0ECEB" Height="25"></TextBox>
 
-        </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
     </Grid>
 </UserControl>

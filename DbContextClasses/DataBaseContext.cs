@@ -7,10 +7,13 @@ namespace DbContextClasses
         public DbSet<GroupStudent> Groups { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DataBaseContext() 
+        
+        public DataBaseContext()
         {
+           
             Database.Migrate();
         }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 

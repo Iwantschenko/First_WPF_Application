@@ -79,7 +79,7 @@ namespace Task {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You want to create or change this course?.
+        ///   Looks up a localized string similar to Create or change this course?.
         /// </summary>
         internal static string CreateChangeYes {
             get {
@@ -97,11 +97,20 @@ namespace Task {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to delete this item?.
+        ///   Looks up a localized string similar to Delete this item?.
         /// </summary>
         internal static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a report?.
+        /// </summary>
+        internal static string DoReport {
+            get {
+                return ResourceManager.GetString("DoReport", resourceCulture);
             }
         }
         
@@ -111,6 +120,51 @@ namespace Task {
         internal static string EditSelect {
             get {
                 return ResourceManager.GetString("EditSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, Enter path to file!!!.
+        /// </summary>
+        internal static string EnterPath {
+            get {
+                return ResourceManager.GetString("EnterPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to export to a file, all data in current file will be lost.
+        /// </summary>
+        internal static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can`t remove this group. It`s not empty.
+        /// </summary>
+        internal static string GroupNotNuLL {
+            get {
+                return ResourceManager.GetString("GroupNotNuLL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to import in this file, all data in this file will be lost.
+        /// </summary>
+        internal static string Import {
+            get {
+                return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can`t import in this file. It`s not empty.
+        /// </summary>
+        internal static string ImportNotNuLL {
+            get {
+                return ResourceManager.GetString("ImportNotNuLL", resourceCulture);
             }
         }
     }

@@ -47,7 +47,7 @@ namespace FunctionRepository
 
         public Course GetId(Guid id) => _context.Courses.FirstOrDefault(x => x.Course_ID == id);
 
-        public async void Save() => await _context.SaveChangesAsync();   
+        public async void Save() =>  _context.SaveChanges();   
 
     }
 }
